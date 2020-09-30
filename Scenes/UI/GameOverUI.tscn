@@ -1,3 +1,21 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="GameOverUI" type="Node2D"]
+[ext_resource path="res://Scripts/GameOverUI.gd" type="Script" id=1]
+
+[node name="GameOverUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1024.0
+margin_bottom = -600.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 408.384
+margin_top = 248.132
+margin_right = 637.384
+margin_bottom = 321.132
+text = "RESTART"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

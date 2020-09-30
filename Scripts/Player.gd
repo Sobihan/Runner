@@ -14,6 +14,8 @@ export var jumpVelocity = 600.0
 export var gravity_scale = 20.0 #Export pour afficher dans l'inspector
 
 onready var animation = $PlayerAnimatedSprite #Onready pour utiliser dans le code l'animation
+onready var jumpSound = $jumpSound
+onready var deathSound = $DeathSound
 
 var score = 0
 
@@ -21,6 +23,7 @@ func jump():
 	velocity = Vector2.ZERO
 	velocity.y -= jumpVelocity
 	animation.play("jump")
+	jumpSound.play()
 	state = IDLE
 
 func _physics_process(delta):
@@ -47,6 +50,7 @@ func _on_Area2D_body_exited(body):
 		state = JUMP
 
 func _ready():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 1)
 	Signals.connect("rewardPlayer", self, "rewardPlayer")
 	Signals.connect("killPlayer", self, "killPlayer")
 
@@ -56,4 +60,6 @@ func rewardPlayer(scoreToAdd):
 	
 
 func killPlayer():
+	deathSound.play()
+	yield(deathSound, "finished") #On attend que deathSound fini
 	queue_free()

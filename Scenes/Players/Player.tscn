@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Player/dog.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Assets/Sprites/Player/dog2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/Player/dog5.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/Player/dog4.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Audio/jump.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Audio/death.wav" type="AudioStream" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -41,5 +43,11 @@ shape = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.349426, 32.9419 )
 shape = SubResource( 3 )
+
+[node name="jumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

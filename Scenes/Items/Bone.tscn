@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Bone.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Items/bone.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Effectors/Pickup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Audio/reward.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27, 14.5 )
@@ -23,5 +24,8 @@ position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="Pickup" to="." method="_on_Pickup_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
