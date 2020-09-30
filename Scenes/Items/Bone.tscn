@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Bone.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Items/bone.png" type="Texture" id=2]
 
 [node name="Bone" type="Node2D"]
 script = ExtResource( 1 )
+scrollSpeed = 4.7
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.500001, 1 )
+scale = Vector2( 0.131841, 0.181818 )
+texture = ExtResource( 2 )

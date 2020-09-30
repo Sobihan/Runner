@@ -8,6 +8,6 @@ var SceneIndex = 0
 
 func _on_Timer_timeout():
 	randomScene.randomize()
-	SceneIndex = randomScene.randl_range(0, scenes.size() - 1)
+	SceneIndex = randomScene.randi_range(0, scenes.size() - 1)
 	var tmp = scenes[SceneIndex].instance()
 	add_child_below_node(self, tmp)
