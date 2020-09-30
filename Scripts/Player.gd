@@ -48,7 +48,12 @@ func _on_Area2D_body_exited(body):
 
 func _ready():
 	Signals.connect("rewardPlayer", self, "rewardPlayer")
+	Signals.connect("killPlayer", self, "killPlayer")
 
 func rewardPlayer(scoreToAdd):
 	score += scoreToAdd
-	print(score)
+	Signals.emit_signal("updateScore", score)
+	
+
+func killPlayer():
+	queue_free()
