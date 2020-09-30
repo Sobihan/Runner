@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Player/dog.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Player/dog1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Player/dog2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Player/dog5.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Player/dog4.png" type="Texture" id=6]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 52.5791, 33.804 )
+
+[node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+
+[node name="PlayerAnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
