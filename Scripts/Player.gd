@@ -15,6 +15,8 @@ export var gravity_scale = 20.0 #Export pour afficher dans l'inspector
 
 onready var animation = $PlayerAnimatedSprite #Onready pour utiliser dans le code l'animation
 
+var score = 0
+
 func jump():
 	velocity = Vector2.ZERO
 	velocity.y -= jumpVelocity
@@ -43,3 +45,10 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if body is StaticBody2D:
 		state = JUMP
+
+func _ready():
+	Signals.connect("rewardPlayer", self, "rewardPlayer")
+
+func rewardPlayer(scoreToAdd):
+	score += scoreToAdd
+	print(score)
