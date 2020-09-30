@@ -1,35 +1,45 @@
 extends KinematicBody2D
 
 var velocity = Vector2.ZERO;
-var canJump = true
+
+enum {
+	JUMP,
+	RUN,
+	IDLE
+}
+
+var state = RUN
 
 export var jumpVelocity = 600.0
 export var gravity_scale = 20.0 #Export pour afficher dans l'inspector
 
-onready var animation = $PlayerAnimatedSprite
+onready var animation = $PlayerAnimatedSprite #Onready pour utiliser dans le code l'animation
 
-func _ready():
-	animation.play("run")
+func jump():
+	velocity = Vector2.ZERO
+	velocity.y -= jumpVelocity
+	animation.play("jump")
+	state = IDLE
 
 func _physics_process(delta):
+	match state: #1 sorte de Switch Case
+		RUN:
+			animation.play("run")
+		JUMP:
+			jump()
+		IDLE:
+			pass
 	velocity.y += gravity_scale
 	move_and_collide(velocity * delta)
 
 func _input(event):
-	if event.is_action_pressed("Jump") and canJump == true:
-		velocity = Vector2.ZERO	
-		velocity.y -= jumpVelocity
-		animation.play("jump")
-
+	if state == RUN and event.is_action_pressed("Jump"):
+		state = JUMP
 
 func _on_Area2D_body_entered(body):
 	if body is StaticBody2D:
-		canJump = true
-		print("Player in Floor")
-		animation.play("run")
-
+		state = RUN
 
 func _on_Area2D_body_exited(body):
 	if body is StaticBody2D:
-		print("Player not in Floor")
-		canJump = false
+		state = JUMP
